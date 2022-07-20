@@ -1,13 +1,11 @@
 const express = require("express");
 
-// const albumRoutes = require("./routes/album");
-// const trackRoutes = require("./routes/track");
+const stuffRoutes = require("./routes/stuff");
 
 const app = express();
 
 app.use(express.json());
 
-// app.use("/album", albumRoutes);
-// app.use("/track", trackRoutes);
+app.use("/stuff", stuffRoutes);
 
 module.exports = app;

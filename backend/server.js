@@ -1,7 +1,7 @@
 const app = require("./app");
 const connection = require("./db-config");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 app.set("port", port);
 
 connection.connect((err) => {
