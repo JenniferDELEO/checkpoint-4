@@ -17,12 +17,11 @@ export default function Home() {
     axios
       .get(`http://localhost:3001/stuff`)
       .then((res) => setStuffList(res.data));
-    console.log(stuffList);
   }, []);
 
   return (
     <div>
-      <div className="bg-white w-[60%] mx-auto mb-[50px] rounded-xl h-[100px] flex justify-around items-center">
+      <form className="bg-white w-[90%] mx-auto mb-[50px] rounded-xl h-[200px] lg:h-[100px] flex flex-wrap justify-around items-center">
         <select
           name="categories"
           id="categories"
@@ -30,7 +29,7 @@ export default function Home() {
             setSelectedCategory(parseInt(e.target.value, 10));
           }}
           value={selectedCategory}
-          className="bg-slate-50 rounded-lg py-3 px-5 m-2 mx-7 h-[50px]"
+          className="bg-slate-50 rounded-lg py-3 px-5 m-2 h-[50px]"
         >
           <option value="Catégories" className="">
             Choisissez votre catégorie
@@ -44,10 +43,16 @@ export default function Home() {
         <input
           type="text"
           placeholder="Que recherchez-vous ?"
-          className="w-[40%] p-3 m-2 h-[50px] mx-7 bg-slate-50 rounded-lg"
+          className="w-[47%] p-3 m-2 h-[50px] mx-7 bg-slate-50 rounded-lg"
         />
-      </div>
-      <div className="flex flex-wrap w-[90%] justify-between mx-auto">
+        <button
+          type="submit"
+          className="bg-gradient-to-b from-[#B32222] to-[#CA0D0D] text-white rounded-xl border-2 p-2 px-5"
+        >
+          Rechercher
+        </button>
+      </form>
+      <div className="flex flex-wrap w-[90%] items-center justify-around lg:justify-between mx-auto">
         {stuffList
           .filter((stuff) =>
             stuff.categoryId === selectedCategory
@@ -56,7 +61,7 @@ export default function Home() {
           )
           .map((stuff) => (
             <NavLink to={`/thingdetail/${stuff.id}`} key={stuff.id}>
-              <div className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px]">
+              <div className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]">
                 <img
                   src={stuff.imageUrl}
                   alt={stuff.title}

@@ -17,7 +17,7 @@ export default function Header() {
         <NavLink to="/">
           <h1>LesBonnesAffaires</h1>
         </NavLink>
-        <ul className="hidden md:flex md:justify-between">
+        <ul className="hidden lg:flex lg:justify-between">
           <NavLink to="/form" className="flex hover:border-b mr-5">
             <AiOutlinePlusSquare />
             <li className="ml-3 text-sm uppercase">Déposer une annonce</li>
@@ -27,21 +27,21 @@ export default function Header() {
             <li className="ml-3 text-sm uppercase">Mon profil</li>
           </NavLink>
         </ul>
-        <div className="md:hidden cursor-pointer" onClick={openMenu}>
+        <div className="lg:hidden cursor-pointer" onClick={openMenu}>
           <AiOutlineMenu size={25} />
         </div>
       </div>
       <div
         className={
           isOpen
-            ? "md:hidden fixed left-0 top-0 w-full h-screen bg-black/70"
+            ? "lg:hidden fixed left-0 top-0 w-full h-screen bg-black/70"
             : ""
         }
       >
         <div
           className={
             isOpen
-              ? "fixed right-0 top-0 w-[75%] sm:w-[60%] md:w-[45%] h-screen bg-gradient-to-b from-[#B32222] to-[#CA0D0D] p-10 ease-in duration-500"
+              ? "fixed right-0 top-0 w-[75%] sm:w-[60%] lg:w-[45%] h-screen bg-gradient-to-b from-[#B32222] to-[#CA0D0D] p-10 ease-in duration-500"
               : "fixed right-[-100%] top-0 p-10 ease-in duration-500"
           }
         >
