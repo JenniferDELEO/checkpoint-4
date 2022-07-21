@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Form() {
+export default function Profil() {
   return <div className="formContainer"></div>;
 }

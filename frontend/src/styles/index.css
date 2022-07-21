@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-[#ecf0f3] text-[#1f2937] tracking-wide;
+    @apply bg-[#1f2937] text-black tracking-wide;
   }
 
   h1,
@@ -25,7 +25,7 @@
   }
 
   h2 {
-    @apply text-2xl sm:text-3xl;
+    @apply text-xs sm:text-sm;
   }
 
   li {

@@ -1,12 +1,12 @@
 const connection = require("../db-config");
 
 exports.createThing = (req, res) => {
-  const { title, description, imageUrl, price } = req.body;
+  const { title, description, imageUrl, price, categoryId, userId } = req.body;
   connection
     .promise()
     .query(
-      "INSERT INTO stuff (title, description, imageUrl, price) VALUES (?, ?, ?, ?)",
-      [title, description, imageUrl, price]
+      "INSERT INTO stuff (title, description, imageUrl, price, categoryId, userId) VALUES (?, ?, ?, ?, ?, ?)",
+      [title, description, imageUrl, price, categoryId, userId]
     )
     .then(() => {
       res.status(201).send({
@@ -14,6 +14,8 @@ exports.createThing = (req, res) => {
         description,
         imageUrl,
         price,
+        categoryId,
+        userId,
       });
     })
     .catch((err) => {
