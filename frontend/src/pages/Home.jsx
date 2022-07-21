@@ -101,7 +101,7 @@ export default function Home() {
           )
           .map((stuff) => (
             <div
-              className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]"
+              className="bg-white m-3 rounded-xl p-2 flex flex-col justify-between items-center h-[280px] w-[300px] lg:w-[260px]"
               key={stuff.id}
             >
               <div className="flex justify-between">

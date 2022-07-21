@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Form() {
+  const navigate = useNavigate();
   const defaultState = {
     title: "",
     description: "",
@@ -25,6 +27,7 @@ export default function Form() {
     try {
       await axios.post(`http://localhost:3001/stuff/`, infos);
       setInfos(defaultState);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
