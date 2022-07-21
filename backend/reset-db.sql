@@ -1,4 +1,7 @@
-DROP TABLE IF EXISTS `users`;      
+DROP TABLE IF EXISTS `stuff`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `categories`;    
+  
 CREATE TABLE `users` 
 ( 
   `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -8,14 +11,12 @@ CREATE TABLE `users`
   `password` VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories`
 (
   `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL
 );
-
-DROP TABLE IF EXISTS `stuff`;      
+      
 CREATE TABLE `stuff`
 (
   `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -37,7 +38,7 @@ INSERT INTO `categories` (name)
 VALUES ("Véhicules"), ("Mode"), ("Maison"), ("Multimédia"), ("Loisirs");
 
 INSERT INTO `users` (firstname, lastname, email, password)
-VALUES ("Jennifer", "DE LEO", "deleo.jennifer@yahoo.fr", "Yoshi007!");
+VALUES ("Jennifer", "DE LEO", "deleo.jennifer@yahoo.fr", "WildCodeSchool!");
 
 INSERT INTO `stuff` (title, description, imageUrl, price, categoryId, userId)
 VALUES ('Ordinateur portable ASUS', "A vendre ordinateur portable de marque Asus fonctionne très bien sûr secteur il manque une batterie et un chargeur c'est un Intel core i7 disque dur 500 giga sous windows 10", 'https://www.grosbill.com/images_produits/7752544c-2184-40cb-85af-f0a12e85cd59.jpg', 750, 4, 1),
