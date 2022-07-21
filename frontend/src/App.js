@@ -2,14 +2,15 @@ import "./styles/App.css";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import TokenContextProvider from "./context/userContext";
 
 function App() {
   return (
-    <div>
+    <TokenContextProvider>
       <Header />
       <Main />
       <Footer />
-    </div>
+    </TokenContextProvider>
   );
 }
 
