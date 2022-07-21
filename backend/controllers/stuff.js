@@ -1,4 +1,5 @@
 const connection = require("../db-config");
+const stuffRepo = require("../repositories/stuff");
 
 exports.createThing = (req, res) => {
   const { title, description, imageUrl, price, categoryId, userId } = req.body;
@@ -63,29 +64,12 @@ exports.deleteThing = (req, res) => {
     });
 };
 
-exports.getAllStuff = (req, res) => {
-  connection
-    .promise()
-    .query("SELECT * FROM stuff")
-    .then(([results]) => {
-      res.json(results);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Error retrieving the stuff from the database");
-    });
-};
-
-exports.getOneThing = (req, res) => {
-  const { id } = req.params;
-  connection
-    .promise()
-    .query("SELECT * FROM stuff s WHERE s.id = ?", [id])
-    .then(([results]) => {
-      res.json(results);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Error retrieving the stuff from the database");
-    });
+exports.getAllStuff = async (req, res) => {
+  try {
+    const result = await stuffRepo.getAllStuff(req.query.title);
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error retrieving the stuff from the database");
+  }
 };

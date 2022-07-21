@@ -6,7 +6,7 @@ import {
   AiOutlineMenu,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function Header() {
             <li className="ml-3 text-sm uppercase">Déposer une annonce</li>
           </NavLink>
           <NavLink to="/profil" className="flex hover:border-b">
-            <BsSearch />
+            <CgProfile />
             <li className="ml-3 text-sm uppercase">Mon profil</li>
           </NavLink>
         </ul>

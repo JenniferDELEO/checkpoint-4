@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
+
+function toObject(searchParams) {
+  const res = {};
+  searchParams.forEach((value, key) => (res[key] = value));
+}
 
 export default function Home() {
   const [categoriesList, setCategoriesList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [stuffList, setStuffList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [popup, setPopup] = useState(false);
+  const [popupPatch, setPopupPatch] = useState(false);
+  const [id, setId] = useState();
+  const defaultState = {
+    title: "",
+    description: "",
+    imageUrl: "",
+    price: null,
+    categoryId: 0,
+    userId: 1,
+  };
+  const [infos, setInfos] = useState(defaultState);
 
   useEffect(() => {
     axios
@@ -15,9 +36,31 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/stuff`)
+      .get(`http://localhost:3001/stuff?${searchParams}`)
       .then((res) => setStuffList(res.data));
-  }, []);
+  }, [searchParams]);
+
+  function handleDelete(id) {
+    const stringId = id.toString();
+    axios
+      .delete(`http://localhost:3001/stuff/${stringId}`)
+      .then(() => setStuffList(stuffList.filter((stuff) => stuff.id !== id)));
+    setPopup(!popup);
+  }
+
+  function handlePatch(e, id) {
+    const stringId = id.toString();
+    axios
+      .put(`http://localhost:3001/stuff/${stringId}`, {
+        infos,
+      })
+      .then(() => setInfos(defaultState))
+      .then(() => {
+        axios
+          .get(`http://localhost:3001/stuff/`)
+          .then((res) => setStuffList(res.data));
+      });
+  }
 
   return (
     <div>
@@ -29,11 +72,9 @@ export default function Home() {
             setSelectedCategory(parseInt(e.target.value, 10));
           }}
           value={selectedCategory}
-          className="bg-slate-50 rounded-lg py-3 px-5 m-2 h-[50px]"
+          className="bg-slate-100 rounded-lg py-3 px-5 m-2 h-[50px]"
         >
-          <option value="Catégories" className="">
-            Choisissez votre catégorie
-          </option>
+          <option value="Catégories">Choisissez votre catégorie</option>
           {categoriesList.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
@@ -43,14 +84,15 @@ export default function Home() {
         <input
           type="text"
           placeholder="Que recherchez-vous ?"
-          className="w-[47%] p-3 m-2 h-[50px] mx-7 bg-slate-50 rounded-lg"
+          className="w-[47%] p-3 m-2 h-[50px] mx-7 bg-slate-100 rounded-lg"
+          value={searchParams.get("title") || ""}
+          onChange={(e) =>
+            setSearchParams({
+              ...toObject(searchParams),
+              title: e.target.value,
+            })
+          }
         />
-        <button
-          type="submit"
-          className="bg-gradient-to-b from-[#B32222] to-[#CA0D0D] text-white rounded-xl border-2 p-2 px-5"
-        >
-          Rechercher
-        </button>
       </form>
       <div className="flex flex-wrap w-[90%] items-center justify-around lg:justify-between mx-auto">
         {stuffList
@@ -60,21 +102,77 @@ export default function Home() {
               : !selectedCategory
           )
           .map((stuff) => (
-            <NavLink to={`/thingdetail/${stuff.id}`} key={stuff.id}>
-              <div className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]">
-                <img
-                  src={stuff.imageUrl}
-                  alt={stuff.title}
-                  className="w-[150px] h-[120px] rounded-xl m-4"
-                />
-                <h2 className="w-[250px] text-center">{stuff.title}</h2>
-                <p className="text-center">{stuff.price} €</p>
-                <p className="text-center">
-                  {stuff.description.slice(0, 30)}...
-                </p>
+            <div className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]">
+              <div className="flex justify-between">
+                <NavLink to={`/thingdetail/${stuff.id}`} key={stuff.id}>
+                  <img
+                    src={stuff.imageUrl}
+                    alt={stuff.title}
+                    className="w-[150px] h-[120px] rounded-xl m-4"
+                  />
+                </NavLink>
+                <div className="flex justify-between">
+                  <div className="cursor-pointer">
+                    <BsPencilSquare />
+                  </div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setPopup(!popup);
+                      setId(stuff.id);
+                    }}
+                  >
+                    <BsTrash className="ml-2" />
+                  </div>
+                </div>
               </div>
-            </NavLink>
+              <h2 className="w-[250px] text-center">{stuff.title}</h2>
+              <p className="text-center">{stuff.price} €</p>
+              <p className="text-center">{stuff.description.slice(0, 30)}...</p>
+            </div>
           ))}
+      </div>
+      <div
+        className={
+          popup ? "fixed left-0 top-0 w-full h-screen bg-black/70" : ""
+        }
+      >
+        <div
+          className={
+            popup
+              ? "mx-auto my-40 w-[60%] h-[60%] bg-[white] p-10 ease-in duration-500 rounded-xl"
+              : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
+          }
+        >
+          <div className="flex w-full items-center justify-between">
+            <h3>Supprimer</h3>
+            <div
+              className="p-3 cursor-pointer"
+              onClick={() => setPopup(!popup)}
+            >
+              <AiOutlineClose size={25} style={{ color: "#CA0D0D" }} />
+            </div>
+          </div>
+          <div className="my-20">
+            Etes-vous sûr de vouloir suppimer cet objet ?
+          </div>
+          <div className="flex justify-evenly">
+            <button
+              type="submit"
+              className="w-[40%] h-[30px] mx-auto flex justify-evenly text-white shadow-xl shadow-[#1D2723] rounded-xl bg-gradient-to-b from-[#B32222] to-[#CA0D0D]"
+              onClick={() => handleDelete(id)}
+            >
+              Supprimer
+            </button>
+            <button
+              type="submit"
+              className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-xl shadow-gray-300 rounded-xl bg-slate-200"
+              onClick={() => setPopup(!popup)}
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

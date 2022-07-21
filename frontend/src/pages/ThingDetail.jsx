@@ -23,17 +23,19 @@ export default function ThingDetail({ id }) {
               <img
                 src={stuff.imageUrl}
                 alt={stuff.title}
-                className="w-[100vw] h-[300px] lg:w-[500px] lg:h-[500px] mb-4"
+                className="w-[100vw] h-[300px] sm:w-[700px] sm:h-[500px] mb-4"
               />
-              <h2 className="w-[250px] text-center text-xl sm:text-2xl mb-4">
+              <h2 className="text-center text-xl sm:text-2xl mb-4">
                 {stuff.title}
               </h2>
               <p className="text-center mb-4">{stuff.price} €</p>
               <div className="h-[3px] bg-slate-100 w-[100vw] mb-4"></div>
-              <h2 className="self-start pl-4 text-xl sm:text-2xl mb-4">
+              <h2 className="self-start sm:self-center pl-4 text-xl sm:text-2xl mb-4">
                 Description :
               </h2>
-              <p className="self-start pl-4">{stuff.description}</p>
+              <p className="self-start sm:self-center pl-4 sm:w-[80%]">
+                {stuff.description}
+              </p>
             </div>
           </div>
         ))}

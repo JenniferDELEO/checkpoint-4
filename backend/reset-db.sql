@@ -40,7 +40,7 @@ INSERT INTO `users` (firstname, lastname, email, password)
 VALUES ("Jennifer", "DE LEO", "deleo.jennifer@yahoo.fr", "Yoshi007!");
 
 INSERT INTO `stuff` (title, description, imageUrl, price, categoryId, userId)
-VALUES ('Ordinateur portable ASUS', "A vendre ordinateur portable de marque Asus fonctionne très bien sûr secteur il manque une batterie et un chargeur c'est un Intel core i7 disque dur 500 giga sous windows 10", 'https://www.cdiscount.com/pdt2/7/5/w/1/065x065/s433eaek1975w/rw/pc-ultraportable-asus-vivobook-s433ea-ek1975w-14.jpg', 750, 4, 1),
+VALUES ('Ordinateur portable ASUS', "A vendre ordinateur portable de marque Asus fonctionne très bien sûr secteur il manque une batterie et un chargeur c'est un Intel core i7 disque dur 500 giga sous windows 10", 'https://www.grosbill.com/images_produits/7752544c-2184-40cb-85af-f0a12e85cd59.jpg', 750, 4, 1),
 ('Téléphone Smartphone Samsung Galaxy A13', "Téléphone, état neuf
 Achat boutique Orange , 30 mai 2022
 Facture à l'appui, garanti 2 ans

@@ -7,7 +7,7 @@ export default function Form() {
     title: "",
     description: "",
     imageUrl: "",
-    price: 0,
+    price: null,
     categoryId: 0,
     userId: 1,
   };
@@ -32,8 +32,13 @@ export default function Form() {
 
   return (
     <div className="text-white">
-      <h2 className="mx-2 text-xl sm:text-2xl">Déposer une annonce</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col py-3 mx-2">
+      <h2 className="mx-2 sm:mx-[15%] text-xl sm:text-2xl">
+        Déposer une annonce
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col py-3 mx-2 sm:w-[70%] sm:mx-auto"
+      >
         <label htmlFor="title" className="py-2">
           Titre
         </label>
