@@ -68,9 +68,15 @@ La vend avec 32 dosette classique et 26 dosette petit déjeuner....", "https://i
 - 2 pièces d'extrémité, pouvant être ouverte ( 2ème photo )
 - 1 pièce d'angle contenant deux places ensemble
 
-Imitation cuir, marron foncé.", "https://img.leboncoin.fr/api/v1/lbcpb1/images/a9/fe/b3/a9feb397ef179aaaca83d2f188beae6acad47847.jpg?rule=classified-1200x800-webp", 300, 2, 1),
+Imitation cuir, marron foncé.", "https://img.leboncoin.fr/api/v1/lbcpb1/images/a9/fe/b3/a9feb397ef179aaaca83d2f188beae6acad47847.jpg?rule=classified-1200x800-webp", 300, 3, 1),
 ("Bureau et chaise en bois pour enfant", "Atmosphera bureau blanc en bois adapté à l enfant doté d'un large casier de rangement avec la chaise en bois blanche et bleue", "https://img.leboncoin.fr/api/v1/lbcpb1/images/c3/89/e8/c389e81d603a0b3e4252a72891829183c0e133e3.jpg?rule=classified-1200x800-webp", 40, 3, 1),
 ("A vendre table allongé pour 10 a 12 personnes, table neuve", "Table en céramique avec rallonge et ses 6 chaises très Bon état cause déménagement", "https://img.leboncoin.fr/api/v1/lbcpb1/images/d1/3b/d0/d13bd0c212ab9f35abad599d2b1d9ecaaa61a5c9.jpg?rule=classified-1200x800-webp", 3000, 3, 1),
-("Chaises", "À vendre lot de 2 Chaises pour salle à manger, bureau. Très commodes, excellent état !", "https://img.leboncoin.fr/api/v1/lbcpb1/images/ea/93/64/ea9364115a2f28de6bc398264a77924f5b175b98.jpg?rule=classified-1200x800-webp", 120, 3, 1),
+("Taille M - Déguisement Harry Potter très complet", "Costume jamais utilisé , taille M ( adulte)
+Comprend :
+- Une cape avec écusson brodé et range-baguette
+- Une cravate assortie
+- Une écharpe
+- Une paire de lunette Harry Potter
+- Une baguette magique en PVC", "https://img.leboncoin.fr/api/v1/lbcpb1/images/a1/e2/b5/a1e2b566aee05b53983be83362380c53d9e935e6.jpg?rule=classified-1200x800-webp", 32, 2, 1),
 ("La voleuse de livres, Markus Zusak", "Je vend le livre La voleuse de livres de Markus Zusak, format poche :)", "https://img.leboncoin.fr/api/v1/lbcpb1/images/49/43/e9/4943e94759a244f1b0e6644b33e9683082481fb2.jpg?rule=classified-1200x800-webp", 2, 5, 1),
 ("Console ps4 pro", "Vendre console ps4 pro 1 to avec deux manettes et charges manettes prix 250€ ferme", "https://img.leboncoin.fr/api/v1/lbcpb1/images/34/23/ca/3423caffd33af4e775d4779c5a877863a49761c6.jpg?rule=classified-1200x800-webp", 250, 4, 1);

@@ -17,7 +17,8 @@ export default function Home() {
     axios
       .get(`http://localhost:3001/stuff`)
       .then((res) => setStuffList(res.data));
-  }, [selectedCategory]);
+    console.log(stuffList);
+  }, []);
 
   return (
     <div>
@@ -26,7 +27,7 @@ export default function Home() {
           name="categories"
           id="categories"
           onChange={(e) => {
-            setSelectedCategory(e.target.value);
+            setSelectedCategory(parseInt(e.target.value, 10));
           }}
           value={selectedCategory}
           className="bg-slate-50 rounded-lg py-3 px-5 m-2 mx-7 h-[50px]"
