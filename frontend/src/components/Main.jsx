@@ -10,7 +10,7 @@ export default function Main() {
     <main className="pt-[100px]">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profil/:id" element={<Profil />} />
         <Route path="/form" element={<Form />} />
         <Route path="/thingdetail/:id" element={<ThingDetail />} />
       </Routes>

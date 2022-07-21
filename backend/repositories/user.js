@@ -23,9 +23,3 @@ exports.deleteUser = async (id) => {
   let sql = "DELETE FROM users WHERE id = ?";
   await connection.promise().query(sql, [id]);
 };
-
-exports.getUserByUserEmail = async (email) => {
-  let sql = "SELECT * FROM users WHERE email = ?";
-  const result = await connection.promise().query(sql, [email]);
-  return result[0];
-};

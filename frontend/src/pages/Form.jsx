@@ -7,7 +7,7 @@ export default function Form() {
     title: "",
     description: "",
     imageUrl: "",
-    price: null,
+    price: 0,
     categoryId: 0,
     userId: 1,
   };

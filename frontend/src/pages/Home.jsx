@@ -22,7 +22,7 @@ export default function Home() {
     title: "",
     description: "",
     imageUrl: "",
-    price: null,
+    price: 0,
     categoryId: 0,
     userId: 1,
   };
@@ -51,9 +51,7 @@ export default function Home() {
   function handlePatch(e, id) {
     const stringId = id.toString();
     axios
-      .put(`http://localhost:3001/stuff/${stringId}`, {
-        infos,
-      })
+      .put(`http://localhost:3001/stuff/${stringId}`, infos)
       .then(() => setInfos(defaultState))
       .then(() => {
         axios
@@ -102,9 +100,12 @@ export default function Home() {
               : !selectedCategory
           )
           .map((stuff) => (
-            <div className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]">
+            <div
+              className="bg-white m-3 rounded-xl p-2 flex flex-col justify-center items-center h-[280px] w-[300px] lg:w-[260px]"
+              key={stuff.id}
+            >
               <div className="flex justify-between">
-                <NavLink to={`/thingdetail/${stuff.id}`} key={stuff.id}>
+                <NavLink to={`/thingdetail/${stuff.id}`}>
                   <img
                     src={stuff.imageUrl}
                     alt={stuff.title}
@@ -112,14 +113,20 @@ export default function Home() {
                   />
                 </NavLink>
                 <div className="flex justify-between">
-                  <div className="cursor-pointer">
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setId(stuff.id);
+                      setPopupPatch(!popupPatch);
+                    }}
+                  >
                     <BsPencilSquare />
                   </div>
                   <div
                     className="cursor-pointer"
                     onClick={() => {
-                      setPopup(!popup);
                       setId(stuff.id);
+                      setPopup(!popup);
                     }}
                   >
                     <BsTrash className="ml-2" />
@@ -140,7 +147,7 @@ export default function Home() {
         <div
           className={
             popup
-              ? "mx-auto my-40 w-[60%] h-[60%] bg-[white] p-10 ease-in duration-500 rounded-xl"
+              ? "mx-auto my-40 w-[60%] h-[45%] bg-[white] p-5 ease-in duration-500 rounded-xl"
               : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
           }
         >
@@ -159,19 +166,136 @@ export default function Home() {
           <div className="flex justify-evenly">
             <button
               type="submit"
-              className="w-[40%] h-[30px] mx-auto flex justify-evenly text-white shadow-xl shadow-[#1D2723] rounded-xl bg-gradient-to-b from-[#B32222] to-[#CA0D0D]"
+              className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-white shadow-md shadow-[#B32222] rounded-xl bg-gradient-to-b from-[#B32222] to-[#CA0D0D]"
               onClick={() => handleDelete(id)}
             >
               Supprimer
             </button>
             <button
               type="submit"
-              className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-xl shadow-gray-300 rounded-xl bg-slate-200"
+              className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-md shadow-gray-300 rounded-xl bg-slate-200"
               onClick={() => setPopup(!popup)}
             >
               Annuler
             </button>
           </div>
+        </div>
+      </div>
+      <div
+        className={
+          popupPatch ? "fixed left-0 top-0 w-full h-screen bg-black/70" : ""
+        }
+      >
+        <div
+          className={
+            popupPatch
+              ? "mx-auto my-20 w-[90%] h-[90%] bg-[white] p-4 ease-in duration-500 rounded-xl"
+              : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
+          }
+        >
+          <div className="flex w-full items-center justify-between">
+            <h3>Modifier</h3>
+            <div
+              className="p-3 cursor-pointer"
+              onClick={() => setPopupPatch(!popupPatch)}
+            >
+              <AiOutlineClose size={25} style={{ color: "#CA0D0D" }} />
+            </div>
+          </div>
+          <form className="flex flex-col py-3 mx-2 sm:w-[70%] sm:mx-auto">
+            <label htmlFor="title" className="py-2">
+              Titre
+            </label>
+            <input
+              className="py-2 rounded-lg px-2 text-black bg-slate-50"
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Nouveau titre"
+              value={infos.title}
+              onChange={(e) => setInfos({ ...infos, title: e.target.value })}
+              required
+            />
+            <label htmlFor="categories" className="py-2">
+              Catégorie
+            </label>
+            <select
+              name="categories"
+              id="categories"
+              value={infos.categoryId}
+              onChange={(e) =>
+                setInfos({ ...infos, categoryId: parseInt(e.target.value, 10) })
+              }
+              required
+              className="bg-slate-50 rounded-lg py-2 px-2 my-2 text-gray-700"
+            >
+              <option value="Catégories">Modifier la catégorie</option>
+              {categoriesList.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="price" className="py-2">
+              Prix (en €)
+            </label>
+            <input
+              type="text"
+              name="price"
+              id="price"
+              placeholder="0"
+              className="py-2 rounded-lg px-2 text-black bg-slate-50"
+              value={infos.price}
+              onChange={(e) => setInfos({ ...infos, price: e.target.value })}
+              required
+            />
+            <label htmlFor="description" className="py-2">
+              Description
+            </label>
+            <textarea
+              className="py-2 rounded-lg h-[150px] px-2 text-black bg-slate-50"
+              name="description"
+              id="description"
+              placeholder="Nouvelle description"
+              value={infos.description}
+              onChange={(e) =>
+                setInfos({ ...infos, description: e.target.value })
+              }
+              required
+            ></textarea>
+            <label className="py-2" htmlFor="image">
+              Image Url
+            </label>
+            <input
+              className="py-2 rounded-lg px-2 text-black bg-slate-50"
+              type="text"
+              name="image"
+              id="image"
+              placeholder="http://..."
+              value={infos.imageUrl}
+              onChange={(e) => setInfos({ ...infos, imageUrl: e.target.value })}
+              required
+            />
+            <div className="flex justify-evenly mt-3">
+              <button
+                type="submit"
+                className="w-[40%] h-[30px] mx-auto flex py-1 justify-evenly text-white shadow-md shadow-[#B32222] rounded-xl bg-gradient-to-b from-[#B32222] to-[#CA0D0D]"
+                onClick={(e) => {
+                  handlePatch(e, id);
+                  setPopupPatch(!popupPatch);
+                }}
+              >
+                Modifier
+              </button>
+              <button
+                type="submit"
+                className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-md shadow-gray-300 rounded-xl bg-slate-200"
+                onClick={() => setPopupPatch(!popupPatch)}
+              >
+                Annuler
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
