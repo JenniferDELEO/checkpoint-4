@@ -26,6 +26,7 @@ export default function Home() {
     categoryId: 0,
     userId: 1,
   };
+
   const [infos, setInfos] = useState(defaultState);
 
   useEffect(() => {
@@ -48,11 +49,22 @@ export default function Home() {
     setPopup(!popup);
   }
 
+  const modifyState = {
+    title: infos.title,
+    description: infos.description,
+    imageUrl: infos.imageUrl,
+    price: infos.price,
+    categoryId: infos.categoryId,
+    userId: infos.userId,
+  };
+
+  const [modifyInfos, setModifyInfos] = useState(modifyState);
+
   function handlePatch(e, id) {
     const stringId = id.toString();
     axios
-      .put(`http://localhost:3001/stuff/${stringId}`, infos)
-      .then(() => setInfos(defaultState))
+      .put(`http://localhost:3001/stuff/${stringId}`, modifyInfos)
+      .then(() => setModifyInfos(modifyState))
       .then(() => {
         axios
           .get(`http://localhost:3001/stuff/`)
@@ -148,11 +160,13 @@ export default function Home() {
           className={
             popup
               ? "mx-auto my-40 w-[60%] h-[45%] bg-[white] p-5 ease-in duration-500 rounded-xl"
-              : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
+              : "fixed right-[-100%] top-0 p-10 ease-in duration-500"
           }
         >
           <div className="flex w-full items-center justify-between">
-            <h3>Supprimer</h3>
+            <h3 className="text-[#B32222] mx-2 lg:mx-auto">
+              Supprimer une annonce
+            </h3>
             <div
               className="p-3 cursor-pointer"
               onClick={() => setPopup(!popup)}
@@ -171,13 +185,6 @@ export default function Home() {
             >
               Supprimer
             </button>
-            <button
-              type="submit"
-              className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-md shadow-gray-300 rounded-xl bg-slate-200"
-              onClick={() => setPopup(!popup)}
-            >
-              Annuler
-            </button>
           </div>
         </div>
       </div>
@@ -194,7 +201,9 @@ export default function Home() {
           }
         >
           <div className="flex w-full items-center justify-between">
-            <h3>Modifier</h3>
+            <h3 className="text-[#B32222] mx-2 lg:mx-auto">
+              Modifier une annonce
+            </h3>
             <div
               className="p-3 cursor-pointer"
               onClick={() => setPopupPatch(!popupPatch)}
@@ -202,7 +211,7 @@ export default function Home() {
               <AiOutlineClose size={25} style={{ color: "#CA0D0D" }} />
             </div>
           </div>
-          <form className="flex flex-col py-3 mx-2 sm:w-[70%] sm:mx-auto">
+          <form className="flex flex-col py-3 mx-2 sm:w-[70%] lg:mx-auto">
             <label htmlFor="title" className="py-2">
               Titre
             </label>
@@ -212,8 +221,10 @@ export default function Home() {
               name="title"
               id="title"
               placeholder="Nouveau titre"
-              value={infos.title}
-              onChange={(e) => setInfos({ ...infos, title: e.target.value })}
+              value={modifyInfos.title}
+              onChange={(e) =>
+                setModifyInfos({ ...modifyInfos, title: e.target.value })
+              }
               required
             />
             <label htmlFor="categories" className="py-2">
@@ -222,9 +233,12 @@ export default function Home() {
             <select
               name="categories"
               id="categories"
-              value={infos.categoryId}
+              value={modifyInfos.categoryId}
               onChange={(e) =>
-                setInfos({ ...infos, categoryId: parseInt(e.target.value, 10) })
+                setModifyInfos({
+                  ...modifyInfos,
+                  categoryId: parseInt(e.target.value, 10),
+                })
               }
               required
               className="bg-slate-50 rounded-lg py-2 px-2 my-2 text-gray-700"
@@ -245,8 +259,10 @@ export default function Home() {
               id="price"
               placeholder="0"
               className="py-2 rounded-lg px-2 text-black bg-slate-50"
-              value={infos.price}
-              onChange={(e) => setInfos({ ...infos, price: e.target.value })}
+              value={modifyInfos.price}
+              onChange={(e) =>
+                setModifyInfos({ ...modifyInfos, price: e.target.value })
+              }
               required
             />
             <label htmlFor="description" className="py-2">
@@ -257,9 +273,9 @@ export default function Home() {
               name="description"
               id="description"
               placeholder="Nouvelle description"
-              value={infos.description}
+              value={modifyInfos.description}
               onChange={(e) =>
-                setInfos({ ...infos, description: e.target.value })
+                setModifyInfos({ ...modifyInfos, description: e.target.value })
               }
               required
             ></textarea>
@@ -272,8 +288,10 @@ export default function Home() {
               name="image"
               id="image"
               placeholder="http://..."
-              value={infos.imageUrl}
-              onChange={(e) => setInfos({ ...infos, imageUrl: e.target.value })}
+              value={modifyInfos.imageUrl}
+              onChange={(e) =>
+                setModifyInfos({ ...modifyInfos, imageUrl: e.target.value })
+              }
               required
             />
             <div className="flex justify-evenly mt-3">
@@ -286,13 +304,6 @@ export default function Home() {
                 }}
               >
                 Modifier
-              </button>
-              <button
-                type="submit"
-                className="w-[40%] h-[30px] mx-auto py-1 flex justify-evenly text-[#B32222] shadow-md shadow-gray-300 rounded-xl bg-slate-200"
-                onClick={() => setPopupPatch(!popupPatch)}
-              >
-                Annuler
               </button>
             </div>
           </form>

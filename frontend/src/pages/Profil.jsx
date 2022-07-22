@@ -22,7 +22,7 @@ export default function Profil() {
           <img
             src={profilPicture}
             alt="profile"
-            className="h-[100px] sm:w-[500px] sm:h-[500px] mb-4 rounded-full"
+            className="h-[100px] sm:h-[300px] mb-4 rounded-full"
           />
           <h2 className="text-center text-xl sm:text-2xl mb-4">
             Votre nom : {profil.firstname} {profil.lastname}
