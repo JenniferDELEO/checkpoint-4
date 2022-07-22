@@ -5,7 +5,7 @@ const stuffCtrl = require("../controllers/stuff");
 
 router.post("/", stuffCtrl.createThing);
 router.get("/", stuffCtrl.getAllStuff);
-router.put("/:id", stuffCtrl.modifyThing);
+router.patch("/:id", stuffCtrl.modifyThing);
 router.delete("/:id", stuffCtrl.deleteThing);
 
 module.exports = router;

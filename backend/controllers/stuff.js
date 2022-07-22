@@ -28,7 +28,6 @@ exports.createThing = (req, res) => {
 exports.modifyThing = (req, res) => {
   const { id } = req.params;
   const { title, description, imageUrl, price } = req.body;
-  console.log(title, description, imageUrl, price);
   connection
     .promise()
     .query(
