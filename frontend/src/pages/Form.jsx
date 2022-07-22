@@ -68,7 +68,7 @@ export default function Form() {
           required
           className="bg-slate-50 rounded-lg py-2 px-2 my-2 text-gray-700"
         >
-          <option value="Catégories">Choisissez votre catégorie</option>
+          <option value="0">Choisissez votre catégorie</option>
           {categoriesList.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
